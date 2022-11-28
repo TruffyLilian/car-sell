@@ -1,0 +1,173 @@
+<!-- <div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h1 class="display-6 text-dark">Créer une annonce</h1>
+        <hr class="bg-dark mb-5" />
+        <form #offerForm="ngForm" (ngSubmit)="onSubmitOfferForm(offerForm)">
+          <div class="form-group mb-3">
+            <label for="offerTitleInput">Titre</label>
+            <input
+              type="text"
+              id="offerTitleInput"
+              class="form-control"
+              formControlName="title"
+              ngModel
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerBrandInput">Marque</label>
+            <input
+              type="text"
+              id="offerBrandInput"
+              class="form-control"
+              formControlName="brand"
+              ngModel
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerModelInput">Modèle</label>
+            <input
+              type="text"
+              id="offerModelInput"
+              class="form-control"
+              formControlName="model"
+              ngModel
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerBrandInput">Marque</label>
+            <textarea
+              id="offerDescriptionInput"
+              class="w-100 form-control"
+              rows="5"
+              formControlName="description"
+              ngModel
+            ></textarea>
+            <div class="form-group mb-3">
+              <label for="offerPriceInput">Prix</label>
+              <input
+                type="number"
+                id="offerPriceInput"
+                class="form-control"
+                formControlName="price"
+                ngModel
+              />
+            </div>
+            <div class="d-flex">
+              <button class="btn btn-success mx-auto">Enregistrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+      <div class="bg-white shadow rounded p-4">
+        <h1 class="display-6 text-dark fw-bold">Créer une annonce</h1>
+        <hr class="bg-dark mb-5"/>
+        <form (ngSubmit)="onSubmitOfferForm()" [formGroup]="offerForm">
+          <input formControlName="index" hidden type="number">
+
+          <div class="form-group mb-3">
+            <label for="offerTitleInput">Titre</label>
+            <input
+              class="form-control"
+              formControlName="title"
+              id="offerTitleInput"
+              type="text"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerBrandInput">Marque</label>
+            <input
+              class="form-control"
+              formControlName="brand"
+              id="offerBrandInput"
+              type="text"
+              appUppercaseInput
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerModelInput">Modèle</label>
+            <input
+              class="form-control"
+              formControlName="model"
+              id="offerModelInput"
+              type="text"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="offerBrandInput">Description</label>
+            <textarea
+              class="w-100 form-control"
+              formControlName="description"
+              id="offerDescriptionInput"
+              rows="5"
+            ></textarea>
+            <div class="form-group mb-3">
+              <label for="offerPriceInput">Prix</label>
+              <input
+                class="form-control"
+                formControlName="price"
+                id="offerPriceInput"
+                type="number"
+              />
+            </div>
+            <div class="d-flex">
+              <button
+                [disabled]="offerForm.invalid"
+                class="btn btn-success mx-auto"
+                type="submit"
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+      <div class="bg-white shadow p-4 rounded">
+        <h2 class="display-6 text-dark fw-bold">Annonces enregistrées</h2>
+        <hr class="bg-dark mb-5"/>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Voiture</th>
+            <th scope="col">Prix</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let offer of offers; let i = index">
+            <th>{{ i }}</th>
+            <td>{{ offer.title | firstCharUppercase }}</td>
+            <td>{{ offer.brand }} {{ offer.model }}</td>
+            <td>{{ offer.price | currency: 'EUR': 'symbol':'1.2-2':'fr' }}</td>
+            <td>
+              <button
+                (click)="onEditOffer(offer, i)"
+                class="btn btn-primary"
+                type="button"
+              >
+                Modifier
+              </button>
+              <button (click)="onDeleteOffer(i)" class="btn btn-danger" type="button">Supprimer</button>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
